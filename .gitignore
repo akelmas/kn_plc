@@ -3,6 +3,6 @@ release/
 *.stash
 *.pro.user.*
 Makefile*
-.Debug
-.Release
+*.Debug
+*.Release
 
