@@ -1,0 +1,8 @@
+debug/
+release/
+*.stash
+*.pro.user.*
+Makefile*
+.Debug
+.Release
+

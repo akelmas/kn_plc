@@ -67,19 +67,20 @@ DiagramItem::DiagramItem(DiagramType diagramType, QMenu *contextMenu,
     normallyOpen=true;
     operationMode=opMode;
     QPainterPath path;
-    QFont diagram_font("Ubuntu Mono Bold",16);
+    QFont diagram_font("Ubuntu Mono Bold",12);
+    int x=-30,y=0,w=70,h=70;
 
-    no_contact.addText(-25,0,diagram_font,"—| |—");
+    no_contact.addText(x,y,diagram_font,"—| |—");
 
     no_contact.addRect(-35,-35,70,70);
 
-    nc_contact.addText(-25,0,diagram_font,"—|/|—");
+    nc_contact.addText(x,y,diagram_font,"—|/|—");
     nc_contact.addRect(-35,-35,70,70);
 
-    no_coil.addText(-25,0,diagram_font,"—( )—");
+    no_coil.addText(x,y,diagram_font,"—( )—");
     no_coil.addRect(-35,-35,70,70);
 
-    nc_coil.addText(-25,0,diagram_font,"—(/)—");
+    nc_coil.addText(x,y,diagram_font,"—(/)—");
     nc_coil.addRect(-35,-35,70,70);
 
 

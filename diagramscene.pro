@@ -23,3 +23,7 @@ target.path = $$[QT_INSTALL_EXAMPLES]/widgets/graphicsview/diagramscene
 INSTALLS += target
 
 DISTFILES +=
+
+TARGET = kneditor
+
+@CONFIG += debug_and_release@

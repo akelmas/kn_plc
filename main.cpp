@@ -52,6 +52,7 @@
 
 #include <QApplication>
 #include <QFontDatabase>
+#include <QSizePolicy>
 #include <QDebug>
 
 int main(int argv, char *args[])
@@ -62,6 +63,7 @@ int main(int argv, char *args[])
     MainWindow mainWindow;
 
     QFontDatabase::addApplicationFont(":/fonts/UbuntuMono-B.ttf");
+    mainWindow.setSizePolicy(QSizePolicy::Policy::Fixed,QSizePolicy::Policy::Expanding);
     mainWindow.setGeometry(100, 100, 870, 600);
     mainWindow.show();
 
