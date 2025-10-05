@@ -7,6 +7,7 @@
 LinkView::LinkView(Link* link)
     : m_link(link)
 {
+    constexpr auto rectSize { 50 };
     constexpr auto ctrlPointOffset { 100 };
     Point startPos = m_link->startItem()->pos();
     Point endPos = m_link->endItem()->pos();
@@ -14,7 +15,7 @@ LinkView::LinkView(Link* link)
     QPoint ctrlPoint2 = { endPos.first - ctrlPointOffset, endPos.second };
     setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     setBrush(QBrush(Qt::transparent));
-    QPainterPath path(QPoint { startPos.first, startPos.second });
-    path.cubicTo(ctrlPoint1, ctrlPoint2, QPoint { endPos.first, endPos.second });
+    QPainterPath path(QPoint { startPos.first + rectSize / 2, startPos.second });
+    path.cubicTo(ctrlPoint1, ctrlPoint2, QPoint { endPos.first - rectSize / 2, endPos.second });
     setPath(path);
 }
