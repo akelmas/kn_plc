@@ -45,17 +45,15 @@ static const QPixmap& getCoilImage(Item::State state){
     }
 }
 
-static const QPixmap& getItemImage(Item::Type type, Item::State state){
-    switch(type){
-    case Item::Type::Contact:
+static const QPixmap& getItemImage(Item::Mode mode, Item::State state)
+{
+    switch (mode) {
+    case Item::Mode::Input:
         return getContactImage(state);
-    case Item::Type::Coil:
+    case Item::Mode::Output:
         return getCoilImage(state);
-    case Item::Type::Any:
-        return getTargetItemImage();
     }
 }
-
 }
 
 ItemView::ItemView(Item* item, QGraphicsItem* parent)
@@ -74,9 +72,19 @@ void ItemView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(widget);
     Q_UNUSED(option);
 
-    painter->drawPixmap(boundingRect().toRect(), getItemImage(m_item->type(), m_item->state()));
+    painter->setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    painter->setBrush(QBrush(Qt::black));
     painter->drawRect(boundingRect());
+    painter->drawPixmap(boundingRect().toRect(), getItemImage(m_item->mode(), m_item->state()));
+    constexpr auto radius { 3 };
 
+    switch (m_item->mode()) {
+    case Item::Mode::Input:
+        painter->drawEllipse(QPointF(boundingRect().right(), boundingRect().center().y()), radius, radius);
+    case Item::Mode::Output:
+        painter->drawEllipse(QPointF(boundingRect().left(), boundingRect().center().y()), radius, radius);
+        break;
+    }
 }
 
 void ItemView::mousePressEvent(QGraphicsSceneMouseEvent* event)

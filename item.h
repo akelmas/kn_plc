@@ -10,13 +10,13 @@ public:
     enum class Type : std::uint8_t {
         Contact,
         Coil,
+        Aux,
         Any
     };
 
     enum class Mode : std::uint8_t {
         Input,
-        Output,
-        Aux
+        Output
     };
 
     enum class State : std::uint8_t {
@@ -35,6 +35,9 @@ public:
     Item::Type type() const;
 
     Item::State state() const;
+
+    Item::Mode mode() const;
+    void setMode(Item::Mode newMode);
 
 private:
     Item() = delete;

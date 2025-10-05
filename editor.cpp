@@ -1,6 +1,7 @@
 #include "editor.h"
 #include "item.h"
 #include "link.h"
+#include "logger.h"
 
 Editor* Editor::m_editor = nullptr;
 std::mutex Editor::m_mutex;
@@ -12,6 +13,7 @@ Editor::Mode Editor::mode() const
 
 void Editor::setMode(Editor::Mode newMode)
 {
+    LOGI("Editor::Mode={}", int(newMode));
     m_mode = newMode;
 }
 

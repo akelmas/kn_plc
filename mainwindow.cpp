@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget* parent)
     auto item1 = std::make_shared<Item>(Point { 150, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyClosed);
     auto item2 = std::make_shared<Item>(Point { 250, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
     auto item3 = std::make_shared<Item>(Point { 150, 150 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyOpen);
-    auto item4 = std::make_shared<Item>(Point { 250, 250 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyClosed);
+    auto item4 = std::make_shared<Item>(Point { 250, 250 }, Item::Type::Coil, Item::Mode::Output, Item::State::NormallyClosed);
 
     auto link0 = std::make_shared<Link>(item0, item1);
     auto link1 = std::make_shared<Link>(item1, item2);
