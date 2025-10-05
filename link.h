@@ -6,17 +6,17 @@
 class Item;
 class Link {
 public:
-    Link();
-    Link(Item *startItem, Item *endItem);
+    Link(const std::shared_ptr<Item>& startItem, const std::shared_ptr<Item>& endItem);
 
-    Item *startItem() const;
-
-    Item *endItem() const;
+    std::shared_ptr<Item> startItem() const;
+    void setStartItem(const std::shared_ptr<Item>& newStartItem);
+    std::shared_ptr<Item> endItem() const;
+    void setEndItem(const std::shared_ptr<Item>& newEndItem);
 
 private:
-    Item* m_startItem;
-    Item* m_endItem;
-
+    Link() = delete;
+    std::shared_ptr<Item> m_startItem;
+    std::shared_ptr<Item> m_endItem;
 };
 
 #endif // LINK_H

@@ -1,23 +1,11 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+
+#include "editor.h"
 #include "item.h"
 #include "itemview.h"
 #include "link.h"
 #include "linkview.h"
-
-namespace {
-static std::vector<std::unique_ptr<Item>>& getItems()
-{
-    static std::vector<std::unique_ptr<Item>> items;
-    return items;
-}
-
-static std::vector<std::unique_ptr<Link>>& getLinks()
-{
-    static std::vector<std::unique_ptr<Link>> links;
-    return links;
-}
-}
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
@@ -28,35 +16,35 @@ MainWindow::MainWindow(QWidget* parent)
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
-    auto item0 = std::make_unique<Item>(Point { 50, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
-    auto item1 = std::make_unique<Item>(Point { 150, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyClosed);
-    auto item2 = std::make_unique<Item>(Point { 250, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
-    auto item3 = std::make_unique<Item>(Point { 150, 150 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyOpen);
-    auto item4 = std::make_unique<Item>(Point { 250, 250 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyClosed);
+    auto item0 = std::make_shared<Item>(Point { 50, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
+    auto item1 = std::make_shared<Item>(Point { 150, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyClosed);
+    auto item2 = std::make_shared<Item>(Point { 250, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
+    auto item3 = std::make_shared<Item>(Point { 150, 150 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyOpen);
+    auto item4 = std::make_shared<Item>(Point { 250, 250 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyClosed);
 
-    auto link0 = std::make_unique<Link>(item0.get(), item1.get());
-    auto link1 = std::make_unique<Link>(item1.get(), item2.get());
-    auto link2 = std::make_unique<Link>(item0.get(), item3.get());
-    auto link3 = std::make_unique<Link>(item1.get(), item3.get());
-    auto link4 = std::make_unique<Link>(item2.get(), item4.get());
+    auto link0 = std::make_shared<Link>(item0, item1);
+    auto link1 = std::make_shared<Link>(item1, item2);
+    auto link2 = std::make_shared<Link>(item0, item3);
+    auto link3 = std::make_shared<Link>(item1, item3);
+    auto link4 = std::make_shared<Link>(item2, item4);
 
-    getItems().push_back(std::move(item0));
-    getItems().push_back(std::move(item1));
-    getItems().push_back(std::move(item2));
-    getItems().push_back(std::move(item3));
-    getItems().push_back(std::move(item4));
+    Editor::instance()->items().push_back(item0);
+    Editor::instance()->items().push_back(item1);
+    Editor::instance()->items().push_back(item2);
+    Editor::instance()->items().push_back(item3);
+    Editor::instance()->items().push_back(item4);
 
-    getLinks().push_back(std::move(link0));
-    getLinks().push_back(std::move(link1));
-    getLinks().push_back(std::move(link2));
-    getLinks().push_back(std::move(link3));
-    getLinks().push_back(std::move(link4));
+    Editor::instance()->links().push_back(link0);
+    Editor::instance()->links().push_back(link1);
+    Editor::instance()->links().push_back(link2);
+    Editor::instance()->links().push_back(link3);
+    Editor::instance()->links().push_back(link4);
 
-    for (auto& item : getItems()) {
+    for (auto& item : Editor::instance()->items()) {
         scene->addItem(new ItemView(item.get()));
     }
 
-    for (auto& link : getLinks()) {
+    for (auto& link : Editor::instance()->links()) {
         scene->addItem(new LinkView(link.get()));
     }
 
@@ -72,3 +60,11 @@ void MainWindow::on_actionContact_triggered()
 {
 }
 
+void MainWindow::on_actionSelectLinePointer_triggered(bool checked)
+{
+    if (checked) {
+        Editor::instance()->setMode(Editor::Mode::StartAddLink);
+    } else {
+        Editor::instance()->setMode(Editor::Mode::Idle);
+    }
+}

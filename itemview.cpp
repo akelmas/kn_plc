@@ -1,5 +1,8 @@
 #include "itemview.h"
 
+#include "editor.h"
+#include "link.h"
+
 #include <QPainter>
 #include <QPen>
 namespace{
@@ -27,6 +30,11 @@ static const QPixmap& getNcCoilImage(){
     static const QPixmap pixmap = QPixmap::fromImage(QImage(":/images/negated_coil.png","PNG"));
     return pixmap;
 }
+static const QPixmap& getTargetItemImage()
+{
+    static const QPixmap pixmap = QPixmap::fromImage(QImage(":/images/target.png", "PNG"));
+    return pixmap;
+}
 
 static const QPixmap& getCoilImage(Item::State state){
     switch(state){
@@ -43,6 +51,8 @@ static const QPixmap& getItemImage(Item::Type type, Item::State state){
         return getContactImage(state);
     case Item::Type::Coil:
         return getCoilImage(state);
+    case Item::Type::Any:
+        return getTargetItemImage();
     }
 }
 
@@ -67,4 +77,16 @@ void ItemView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->drawPixmap(boundingRect().toRect(), getItemImage(m_item->type(), m_item->state()));
     painter->drawRect(boundingRect());
 
+}
+
+void ItemView::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    switch (Editor::instance()->mode()) {
+
+    case Editor::Mode::Idle:
+    case Editor::Mode::StartAddLink:
+        Editor::instance()->setSelectedItem(std::make_shared<Item>(m_item->pos(), Item::Type::Any));
+        Editor::instance()->links().push_back(std::make_shared<Link>(std::shared_ptr<Item>(m_item), Editor::instance()->selectedItem()));
+        break;
+    }
 }

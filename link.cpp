@@ -1,19 +1,27 @@
 #include "link.h"
 
-Link::Link()
+Link::Link(const std::shared_ptr<Item>& startItem, const std::shared_ptr<Item>& endItem)
+    : m_startItem(startItem)
+    , m_endItem(endItem)
 {
 }
 
-Item *Link::startItem() const
+std::shared_ptr<Item> Link::startItem() const
 {
     return m_startItem;
 }
 
-Item *Link::endItem() const
+void Link::setStartItem(const std::shared_ptr<Item>& newStartItem)
+{
+    m_startItem = newStartItem;
+}
+
+std::shared_ptr<Item> Link::endItem() const
 {
     return m_endItem;
 }
 
-Link::Link(Item *startItem, Item *endItem) : m_startItem(startItem),
-    m_endItem(endItem)
-{}
+void Link::setEndItem(const std::shared_ptr<Item>& newEndItem)
+{
+    m_endItem = newEndItem;
+}

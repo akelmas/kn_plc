@@ -17,6 +17,9 @@ public:
 private:
     Item* m_item;
 
+    // QGraphicsItem interface
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
 };
 
 #endif // ITEMVIEW_H

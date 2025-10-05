@@ -9,7 +9,8 @@ class Item {
 public:
     enum class Type : std::uint8_t {
         Contact,
-        Coil
+        Coil,
+        Any
     };
 
     enum class Mode : std::uint8_t {
@@ -24,7 +25,10 @@ public:
     };
 
 public:
-    Item(const std::pair<int, int>& pos, Item::Type type, Item::Mode mode, Item::State state);
+    Item(const std::pair<int, int>& pos,
+        Item::Type type,
+        Item::Mode mode = Mode::Input,
+        Item::State state = State::NormallyOpen);
 
     std::pair<int, int> pos() const;
 
@@ -38,8 +42,8 @@ private:
     Item::Type m_type;
     Item::Mode m_mode;
     Item::State m_state;
-    std::list<Link> m_inputLinks;
-    std::list<Link> m_outputLinks;
+    std::list<std::shared_ptr<Link>> m_inputLinks;
+    std::list<std::shared_ptr<Link>> m_outputLinks;
 };
 
 #endif // ITEM_H

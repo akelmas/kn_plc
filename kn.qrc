@@ -8,5 +8,6 @@
         <file>images/NC_contact.png</file>
         <file>images/negated_coil.png</file>
         <file>images/NO_contact.png</file>
+        <file>images/target.png</file>
     </qresource>
 </RCC>

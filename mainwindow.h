@@ -20,6 +20,8 @@ public:
 private slots:
     void on_actionContact_triggered();
 
+    void on_actionSelectLinePointer_triggered(bool checked);
+
 private:
     Ui::MainWindow* ui;
 };
