@@ -16,13 +16,19 @@ MainWindow::MainWindow(QWidget* parent)
 
     Item* start = new Item({ 50, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
     Item* end = new Item({ 250, 250 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
-    Item* end2 = new Item({ 50, 350 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
+    Item* end2 = new Item({ 10, 350 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyClosed);
+    Item* coil = new Item({ 100, 350 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyOpen);
+    Item* coil2 = new Item({ 170, 150 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyClosed);
     Link *link  = new Link(start, end);
     Link* link2 = new Link(start, end2);
 
     ItemView* startItemView = new ItemView(start);
     ItemView* endItemView = new ItemView(end);
     ItemView* endItem2View = new ItemView(end2);
+    ItemView* coilView = new ItemView(coil);
+    ItemView* coil2View = new ItemView(coil2);
+
+
     LinkView* linkview = new LinkView(link);
     LinkView* linkview2 = new LinkView(link2);
 
@@ -31,6 +37,8 @@ MainWindow::MainWindow(QWidget* parent)
     scene->addItem(startItemView);
     scene->addItem(endItemView);
     scene->addItem(endItem2View);
+    scene->addItem(coilView);
+    scene->addItem(coil2View);
 
     ui->graphicsView->show();
 }

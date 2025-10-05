@@ -28,6 +28,10 @@ public:
 
     std::pair<int, int> pos() const;
 
+    Item::Type type() const;
+
+    Item::State state() const;
+
 private:
     Item() = delete;
     std::pair<int,int> m_pos;

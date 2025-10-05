@@ -1,15 +1,70 @@
 #include "itemview.h"
 
+#include <QPainter>
 #include <QPen>
+namespace{
+static const QPixmap& getNoContactImage(){
+    static const QPixmap pixmap = QPixmap::fromImage(QImage(":/images/NO_contact.png","PNG"));
+    return pixmap;
+}
+static const QPixmap& getNcContactImage(){
+    static const QPixmap pixmap = QPixmap::fromImage(QImage(":/images/NC_contact.png","PNG"));
+    return pixmap;
+}
+static const QPixmap& getContactImage(Item::State state){
+    switch(state){
+    case Item::State::NormallyOpen:
+        return getNoContactImage();
+    case Item::State::NormallyClosed:
+        return getNcContactImage();
+    }
+}
+static const QPixmap& getNoCoilImage(){
+    static const QPixmap pixmap = QPixmap::fromImage(QImage(":/images/coil.png","PNG"));
+    return pixmap;
+}
+static const QPixmap& getNcCoilImage(){
+    static const QPixmap pixmap = QPixmap::fromImage(QImage(":/images/negated_coil.png","PNG"));
+    return pixmap;
+}
+
+static const QPixmap& getCoilImage(Item::State state){
+    switch(state){
+    case Item::State::NormallyOpen:
+        return getNoCoilImage();
+    case Item::State::NormallyClosed:
+        return getNcCoilImage();
+    }
+}
+
+static const QPixmap& getItemImage(Item::Type type, Item::State state){
+    switch(type){
+    case Item::Type::Contact:
+        return getContactImage(state);
+    case Item::Type::Coil:
+        return getCoilImage(state);
+    }
+}
+
+}
 
 ItemView::ItemView(Item* item, QGraphicsItem* parent)
-    : QGraphicsRectItem(parent)
+    : QGraphicsItem(parent)
     , m_item(item)
-{
-    constexpr auto rectSize { 50 };
-    setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    setBrush(QBrush(Qt::white));
+{}
 
-    QRect rect(QPoint { m_item->pos().first - rectSize / 2, m_item->pos().second - rectSize / 2 }, QSize { rectSize, rectSize });
-    setRect(rect);
+QRectF ItemView::boundingRect() const
+{
+    constexpr auto rectSize{50};
+    return {QPoint { m_item->pos().first - rectSize / 2, m_item->pos().second - rectSize / 2 }, QSize { rectSize, rectSize }};
+}
+
+void ItemView::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(widget);
+    Q_UNUSED(option);
+
+    painter->drawPixmap(boundingRect().toRect(), getItemImage(m_item->type(), m_item->state()));
+    painter->drawRect(boundingRect());
+
 }
