@@ -40,13 +40,29 @@ _Pin connections should be made using pull-down resistors to avoid floats_
 
 ## Build instructions
 1. Clone this repo. 
-2. Run the commandin top level directory: `qmake -makefile`
-3. Build it: `mingw32-make`
+2. Run the commandin top level directory: 
+
+```
+cmake -B build -DQT_DIR=<path/to/qtX.cmake>
+```
+
+> `QT_DIR` is required to find Qt packages.
+
+3. Build it: 
+
+```
+cmake --build build
+```
 
 ## Usage
-After succesfully compiled, execute the command:
+After succesfully compiled, find the executable in `build` directory and run:
 
-`./release/kneditor.exe` 
+```
+./build/kn
+```
+
+
+
 
 ![App screenshot](/data/ss.png)
 
