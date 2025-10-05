@@ -47,6 +47,10 @@ else()
         qt5_add_resources(PROJECT_SOURCES ${PROJECT_RESOURCES})
         add_executable(kn
             ${PROJECT_SOURCES}
+            item.h item.cpp
+            link.h link.cpp
+            itemview.h itemview.cpp
+            linkview.h linkview.cpp
         )
     endif()
 endif()

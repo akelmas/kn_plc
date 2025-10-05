@@ -13,7 +13,21 @@
   <property name="windowTitle">
    <string>KN Logic</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>911</width>
+      <height>661</height>
+     </rect>
+    </property>
+    <property name="dragMode">
+     <enum>QGraphicsView::NoDrag</enum>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
