@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/pointer.png</file>
+        <file>images/linepointer.png</file>
+        <file>images/delete.png</file>
+        <file>images/linecolor.png</file>
+        <file>images/coil.png</file>
+        <file>images/NC_contact.png</file>
+        <file>images/negated_coil.png</file>
+        <file>images/NO_contact.png</file>
+    </qresource>
+</RCC>
