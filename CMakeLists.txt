@@ -51,6 +51,7 @@ else()
             link.h link.cpp
             itemview.h itemview.cpp
             linkview.h linkview.cpp
+            editor.h editor.cpp
         )
     endif()
 endif()

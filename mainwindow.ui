@@ -34,7 +34,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -371,6 +371,9 @@
    </property>
   </action>
   <action name="actionSelectLinePointer">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="kn.qrc">
      <normaloff>:/images/linepointer.png</normaloff>:/images/linepointer.png</iconset>
