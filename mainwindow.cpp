@@ -6,12 +6,16 @@
 #include "itemview.h"
 #include "link.h"
 #include "linkview.h"
+#include "logger.h"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    Logger::initialize(ui->logView, 500);
+
     auto* scene = new QGraphicsScene(0,0,500,500,ui->graphicsView);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);

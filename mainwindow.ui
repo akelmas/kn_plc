@@ -20,11 +20,21 @@
       <x>10</x>
       <y>10</y>
       <width>911</width>
-      <height>661</height>
+      <height>571</height>
      </rect>
     </property>
     <property name="dragMode">
      <enum>QGraphicsView::NoDrag</enum>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="logView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>590</y>
+      <width>911</width>
+      <height>74</height>
+     </rect>
     </property>
    </widget>
   </widget>

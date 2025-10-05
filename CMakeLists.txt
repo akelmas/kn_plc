@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(kn VERSION 0.1 LANGUAGES CXX)
 
+include(cmake/CPM.cmake)
+
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -9,10 +11,28 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+CPMAddPackage(
+  NAME     spdlog
+  URL      https://github.com/gabime/spdlog/archive/refs/tags/v1.15.3.zip
+  URL_HASH SHA256=b74274c32c8be5dba70b7006c1d41b7d3e5ff0dff8390c8b6390c1189424e094
+)
+
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
+    editor.h
+    editor.cpp
+    item.h
+    item.cpp
+    itemview.h
+    itemview.cpp
+    link.h
+    link.cpp
+    linkview.h
+    linkview.cpp
+    logger.h
+    logger.cpp
     main.cpp
     mainwindow.h
     mainwindow.cpp
@@ -47,16 +67,11 @@ else()
         qt5_add_resources(PROJECT_SOURCES ${PROJECT_RESOURCES})
         add_executable(kn
             ${PROJECT_SOURCES}
-            item.h item.cpp
-            link.h link.cpp
-            itemview.h itemview.cpp
-            linkview.h linkview.cpp
-            editor.h editor.cpp
         )
     endif()
 endif()
 
-target_link_libraries(kn PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(kn PRIVATE Qt${QT_VERSION_MAJOR}::Widgets spdlog::spdlog)
 
 set_target_properties(kn PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER kn.elmas.com
