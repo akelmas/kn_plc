@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget* parent)
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
-    auto item0 = std::make_shared<Item>(Point { 50, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
+    auto item0 = std::make_shared<Item>(Point { 50, 100 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
     auto item1 = std::make_shared<Item>(Point { 150, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyClosed);
     auto item2 = std::make_shared<Item>(Point { 250, 50 }, Item::Type::Contact, Item::Mode::Input, Item::State::NormallyOpen);
     auto item3 = std::make_shared<Item>(Point { 150, 150 }, Item::Type::Coil, Item::Mode::Input, Item::State::NormallyOpen);
@@ -67,7 +67,7 @@ void MainWindow::on_actionContact_triggered()
 void MainWindow::on_actionSelectLinePointer_triggered(bool checked)
 {
     if (checked) {
-        Editor::instance()->setMode(Editor::Mode::StartAddLink);
+        Editor::instance()->setMode(Editor::Mode::AddLink);
     } else {
         Editor::instance()->setMode(Editor::Mode::Idle);
     }

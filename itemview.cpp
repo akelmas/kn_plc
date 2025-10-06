@@ -2,6 +2,7 @@
 
 #include "editor.h"
 #include "link.h"
+#include "logger.h"
 
 #include <QPainter>
 #include <QPen>
@@ -92,9 +93,17 @@ void ItemView::mousePressEvent(QGraphicsSceneMouseEvent* event)
     switch (Editor::instance()->mode()) {
 
     case Editor::Mode::Idle:
-    case Editor::Mode::StartAddLink:
-        Editor::instance()->setSelectedItem(std::make_shared<Item>(m_item->pos(), Item::Type::Any));
-        Editor::instance()->links().push_back(std::make_shared<Link>(std::shared_ptr<Item>(m_item), Editor::instance()->selectedItem()));
+        break;
+    case Editor::Mode::AddLink:
+        if (Editor::instance()->selectedItem()) {
+            LOGI("Editor::Mode::AddLink: end item={}", *m_item);
+            Editor::instance()->links().push_back(std::make_shared<Link>(Editor::instance()->selectedItem(), std::shared_ptr<Item>(m_item)));
+            Editor::instance()->setSelectedItem(nullptr);
+            emit Editor::instance()->linksChanged();
+            return;
+        }
+        LOGI("Editor::Mode::AddLink: start item={}", *m_item);
+        Editor::instance()->setSelectedItem(std::shared_ptr<Item>(m_item));
         break;
     }
 }

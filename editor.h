@@ -1,16 +1,22 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
+#include <QObject>
+
 #include <vector>
 class Item;
 class Link;
 
-class Editor {
+class Editor : public QObject {
+    Q_OBJECT
 public:
     enum class Mode : uint8_t {
         Idle,
-        StartAddLink
+        AddLink
     };
+
+signals:
+    void linksChanged();
 
 public:
     Editor(Editor& other) = delete;
